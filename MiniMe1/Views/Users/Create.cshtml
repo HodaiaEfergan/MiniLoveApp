@@ -1,0 +1,70 @@
+﻿@using Microsoft.AspNetCore.Http;
+@model sharedAngular.Models.Users
+
+@{
+    ViewData["Title"] = "הרשמה";
+}
+<div class="container">
+    <div class="row">
+
+
+        <div class="col-sm">
+            <h2>הרשמה</h2>
+            <form asp-action="Create">
+                @if (Context.Session.GetString("manag") !=null)
+                {
+                    <div class="form-group">
+                        <label asp-for="Manag" class="control-label"></label>
+                        <input asp-for="Manag" class="form-control" />
+                        <span asp-validation-for="Manag" class="text-danger"></span>
+                    </div>
+                }
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Mail" class="control-label"></label>
+                    <input asp-for="Mail" class="form-control" />
+                    <span asp-validation-for="Mail" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="City" class="control-label"></label>
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Phone" class="control-label"></label>
+                    <input asp-for="Phone" class="form-control" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="password" class="control-label"></label>
+                    <input asp-for="password" class="form-control" />
+                    <span asp-validation-for="password" class="text-danger"></span>
+                </div>
+
+
+
+                <hr class="mb-4">
+                <button class="btn btn-light btn-lg btn-block" style="background-color: maroon;" type="submit">
+                    הרשם
+                </button>
+                <hr />
+            </form>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

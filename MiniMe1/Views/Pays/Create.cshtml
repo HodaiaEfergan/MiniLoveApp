@@ -1,0 +1,77 @@
+﻿@model sharedAngular.Models.Pay
+
+@{
+    ViewData["Title"] = "תשלום";
+}
+
+<div class=pay>
+    <h1 text-align:center>תשלום</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm">
+            <h3> כרטיס אשראי </h3>
+           <form asp-action="Create">
+               <div class=c>
+                   <div class="form-group">
+                       <label asp-for="CreditNum" class="control-label"></label>
+                       <input asp-for="CreditNum" class="form-control" />
+                       <span asp-validation-for="CreditNum" class="text-danger"></span>
+                   </div>
+                   <div class="row">
+                       <div class="col-md-5 mb-3">
+                           <div class="form-group">
+                               <label asp-for="ExpireMonth" class="control-label"></label>
+                               <input asp-for="ExpireMonth" class="form-control" />
+                               <span asp-validation-for="ExpireMonth" class="text-danger"></span>
+                           </div>
+                       </div>
+                       <div class="col-md-6 mb-3">
+                           <div class="form-group">
+                               <label asp-for="ExpireYear" class="control-label"></label>
+                               <input asp-for="ExpireYear" class="form-control" />
+                               <span asp-validation-for="ExpireYear" class="text-danger"></span>
+                           </div>
+                       </div>
+                   </div>
+                   <div class="form-group">
+                       <label asp-for="CW" class="control-label"></label>
+                       <input asp-for="CW" class="form-control" />
+                       <span asp-validation-for="CW" class="text-danger"></span>
+                   </div>
+
+                   <div class="form-group">
+                       <label asp-for="OwnName" class="control-label"></label>
+                       <input asp-for="OwnName" class="form-control" />
+                       <span asp-validation-for="OwnName" class="text-danger"></span>
+                   </div>
+
+                   <div class="form-group">
+                       <label asp-for="IdNum" class="control-label"></label>
+                       <input asp-for="IdNum" class="form-control" />
+                       <span asp-validation-for="IdNum" class="text-danger"></span>
+                   </div>
+
+                   <hr class="mb-4">
+                   <button class="btn btn-light btn-lg btn-block" style="background-color: maroon;" type="submit">
+                       הרשם
+                   </button>
+                   <hr />
+                  
+               </div>
+            </form>
+        </div>
+
+     
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+</script>
+

@@ -1,0 +1,157 @@
+﻿@using Microsoft.AspNetCore.Http;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - store</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/index.css" />
+</head>
+<body>
+    <header>
+        <div class="AnnouncementBar__Content">
+            משלוח חינם בקנייה מעל 250 ש"ח | שימו לב לנהלי ההחלפה וההחזרה המופיעים בתחתית
+            האתר
+        </div>
+
+        <a class="title text center" asp-controller="Home" asp-action="Index" class="btn">
+
+
+            <img class=img src="assets/mini love1.png" class="img-fluid" alt="Responsive image" width="400">
+
+
+
+        </a>
+        <nav class="navbar ">
+            <div class="row">
+                <form asp-action="Search" asp-controller="Products" class="col m-4">
+
+                    <input placeholder="חפש באתר" name="Name" autocomplete="off" />
+                    <input type="submit" class="btn-outline-light" value="Filter" name="חפש" />
+
+                </form>
+                <form class="form-inline mt-4  ">
+
+
+                    <ul>
+                        <li class="navbar text ">
+
+                            <a class="nav-link " asp-controller="Products" asp-action="Index" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                חדש
+                            </a>
+
+
+                        </li>
+                        <li class="navbar">
+                            <a class="nav-link " href="#" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                מבצעים
+                            </a>
+
+                        </li>
+
+                        <li class="navbar">
+                            <a class="nav-link" asp-controller="Products" asp-action="Baby" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                תינוקות
+                            </a>
+
+                        </li>
+                        <li class="navbar">
+                            <a class="nav-link" asp-controller="Products" asp-action="Boys" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                בנים
+                            </a>
+
+                        </li>
+                        <li class="navbar">
+                            <a class="nav-link" asp-controller="Products" asp-action="Girls" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                בנות
+                            </a>
+
+                        </li>
+
+
+
+                    </ul>
+                    <a asp-controller="Products" asp-action="Index" class="btn">
+                        <i class="heart-fill" dir="ltr">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-heart-fill" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                            </svg>
+                        </i>
+                    </a>
+                    &nbsp; &nbsp;
+
+
+
+
+                    <a asp-controller="Products" asp-action="Index" class="btn">
+                        <i class="cart3" dir="ltr">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart3" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd"
+                                      d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l.84 4.479 9.144-.459L13.89 4H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                            </svg>
+                        </i>
+                    </a>
+                    &nbsp; &nbsp;
+                    <a asp-controller="Users" asp-action="LogIn" class="btn">
+                        <i class="person-circle" dir="ltr">
+                            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z" />
+                                <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z" />
+                            </svg>
+                        </i>
+                    </a>
+                    @if (Context.Session.GetString("user") != null)
+                    {
+                        <p>
+                            <a style="color:white" asp-action="LogUot">התנתק</a>
+                        </p>
+                    }
+
+
+                </form>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer>
+
+        <div class=AnnouncementBar__Content>
+            <div class=row dir="auto" id="center">
+
+
+                <a dir="auto" class="nav-link " asp-controller="Home" asp-action="Contact" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    צור קשר
+                </a>
+                <a class="nav-link " asp-controller="Home" asp-action="Answer" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    שאלות נפוצות
+                </a>
+                <a class="nav-link " asp-controller="Home" asp-action="Branches" id="navbarDropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    סניפים
+
+                </a>
+
+
+
+            </div>
+        </div>
+
+
+
+
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
