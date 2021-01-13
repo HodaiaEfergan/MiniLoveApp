@@ -35,7 +35,7 @@
                         <div class="row">
                             <div class="col p-2">
                                 <div class="d-flex flex-column align-items-center mt-3">
-                                    <label class="m-0 h5 ">@Html.DisplayNameFor(modelItem => item.Colors)</label>
+                                    <label class="m-0 h5 ">@Html.DisplayNameFor(modelItem => item.Colors):</label>
                                     <label class="m-0 h5 ">@Html.DisplayFor(modelItem => item.Colors)</label>
 
 
@@ -52,11 +52,28 @@
 
                             <div class="col p-2">
                                 <div class="d-flex flex-column align-items-center mt-3">
-                                    <label class="m-0 h5">  ₪  @Html.DisplayNameFor(modelItem => item.Price):</label>
+                                    <label class="m-0 h5">    @Html.DisplayNameFor(modelItem => item.Price):</label>
                                     <label class="m-0 h5">  ₪  @Html.DisplayFor(modelItem => item.Price)</label>
 
                                 </div>
                             </div>
+                            <div class="col p-2">
+                                <div class="d-flex flex-column align-items-center mt-3">
+                                    <label class="m-0 h5"> כמות:</label>
+                                    <label class="m-0 h5">    @ViewBag.quantity[item.Id.ToString()] </label>
+
+
+                                </div>
+                            </div>
+
+                            <div class="col p-2">
+                                <div class="d-flex flex-column align-items-center mt-3">
+                                    <label class="m-0 h5">    סך הכל:</label>
+                                    <div class="price">  ₪  @(item.Price* ViewBag.quantity[item.Id.ToString()])</div>
+
+                                </div>
+                            </div>
+
 
                         </div>
 
@@ -81,6 +98,19 @@
             </div>
         </div>
     }
+    <a>סך הכל:<span id="total"></span></a>
+
+    @section Scripts{
+    <script>
+        $(function () {
+            var total = 0;
+            $(".price").each(function (index) {
+                total += parseInt($(this).text());
+            });
+            $('#total').text(total);
+        });
+    </script>
+     }
     <div class="row">
         <div class="col sm-4">
 

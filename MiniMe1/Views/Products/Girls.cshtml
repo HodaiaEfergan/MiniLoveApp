@@ -101,12 +101,11 @@
                             ₪  @Html.DisplayFor(modelItem => item.Price)
                         </p>
                         <div class="row" style="direction:initial ">
-                            <div class="col-3">
-                                <a href="#" class="btn btn-outline-light">הוסף לסל </a>
+                            <div class="col-4">
+                                <a class="btn btn-outline-light" asp-action="AddToCart" asp-route-id="@item.Id">הוסף לסל</a>
                             </div>
-
-                            <div class="col-3">
-                                <a href="#" class="btn btn-outline-light">הוסף למועדפים</a>
+                            <div class="col-4">
+                                <a class="btn btn-outline-light" asp-action="AddToLike" asp-route-id="@item.Id">הוסף למועדפים</a>
                             </div>
 
 

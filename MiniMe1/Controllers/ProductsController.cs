@@ -35,6 +35,21 @@ namespace MiniMe1.Controllers
             string cart = HttpContext.Session.GetString("cart");
             string[] productIdscart = cart.Split(",", StringSplitOptions.RemoveEmptyEntries);
             var productscart = _context.Products.Where(x => productIdscart.Contains(x.Id.ToString()));
+
+
+            Dictionary<string, int> dict = new Dictionary<string, int>();
+            foreach (var id in productIdscart)
+            {
+                if (dict.ContainsKey(id))
+                {
+                    dict[id]++;
+
+                }
+                else
+                    dict.Add(id, 1);
+            } 
+            ViewData["quantity"] = dict;
+
             return View(await productscart.ToListAsync());
 
         }
