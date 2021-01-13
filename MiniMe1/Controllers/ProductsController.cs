@@ -30,16 +30,32 @@ namespace MiniMe1.Controllers
             return View(await _context.Products.ToListAsync());
 
         }
+        public async Task<IActionResult> Cart()
+        {
+            string cart = HttpContext.Session.GetString("cart");
+            string[] productIdscart = cart.Split(",", StringSplitOptions.RemoveEmptyEntries);
+            var productscart = _context.Products.Where(x => productIdscart.Contains(x.Id.ToString()));
+            return View(await productscart.ToListAsync());
 
-      
+        }
+        public async Task<IActionResult> Like()
+        {
+            string like = HttpContext.Session.GetString("like");
+            string[] productIdsLike = like.Split(",", StringSplitOptions.RemoveEmptyEntries);
+            var productsLike = _context.Products.Where(x => productIdsLike.Contains(x.Id.ToString()));
+            return View(await productsLike.ToListAsync());
+
+        }
+
+
 
         public async Task<IActionResult> Girls()
         {
             var p = from Products in _context.Products
-                    where Products.Category =="בנות"
+                    where Products.Category == "בנות"
                     select Products;
             return View(await p.ToListAsync());
-          
+
 
         }
         public async Task<IActionResult> Boys()
@@ -72,7 +88,7 @@ namespace MiniMe1.Controllers
         public async Task<IActionResult> RecentBoys()
         {
             var p = from Products in _context.Products
-                    where Products.Category == "בנים" && Products.Time.Year==DateTime.Now.Year && Products.Time.Month==DateTime.Now.Month-2
+                    where Products.Category == "בנים" && Products.Time.Year == DateTime.Now.Year && Products.Time.Month == DateTime.Now.Month - 2
                     select Products;
             return View(await p.ToListAsync());
 
@@ -95,13 +111,13 @@ namespace MiniMe1.Controllers
         public async Task<IActionResult> Search(String Name)
         {
             var p = from Products in _context.Products
-                    where  Products.Name.Contains(Name)
+                    where Products.Name.Contains(Name)
                     select Products;
             return View(await p.ToListAsync());
         }
         // GET: Products
 
-      
+
 
 
         // GET: Products/Details/5
@@ -127,10 +143,33 @@ namespace MiniMe1.Controllers
         {
             if (HttpContext.Session.GetString("manag") != null)
             {
-               return View(); 
+                return View();
             }
             return RedirectToAction("Index", "Home");
-            
+
+        }
+        public IActionResult AddToCart(int id)
+        {
+            string cart = HttpContext.Session.GetString("cart");
+            if (cart == null)
+                cart = "";
+
+            cart += id + ",";
+            HttpContext.Session.SetString("cart", cart);
+            return RedirectToAction("Index");
+
+        }
+       
+        public IActionResult AddToLike(int id)
+        {
+            string like = HttpContext.Session.GetString("like");
+            if (like == null)
+                like = "";
+
+            like += id + ",";
+            HttpContext.Session.SetString("like", like);
+            return RedirectToAction("Index");
+
         }
 
         // POST: Products/Create
@@ -138,7 +177,7 @@ namespace MiniMe1.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Amount,Category,Type,Description,Price,NewPrice,Size,size2,size3,size4,size5,size6,size7,size8,size9,size10,Colors,Colors2,Colors3,Colors4,Time,NumOfSale,OnSale,Pictures,Pictures2,Pictures3,Pictures4,Pictures5")] Products products)
+        public async Task<IActionResult> Create([Bind("Id,Name,Amount,Category,Type,Description,Price,NewPrice,Size,Size2,Size3,Size4,Size5,Size6,Size7,Size8,Size9,Size10,Colors,Colors2,Colors3,Colors4,Time,NumOfSale,OnSale,Pictures,Pictures2,Pictures3,Pictures4,Pictures5")] Products products)
         {
             if (ModelState.IsValid)
             {
@@ -170,7 +209,7 @@ namespace MiniMe1.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Amount,Category,Type,Description,Price,NewPrice,Size,size2,size3,size4,size5,size6,size7,size8,size9,size10,Colors,Colors2,Colors3,Colors4,Time,NumOfSale,OnSale,Pictures,Pictures2,Pictures3,Pictures4,Pictures5")] Products products)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Amount,Category,Type,Description,Price,NewPrice,Size,Size2,Size3,Size4,Size5,Size6,Size7,Size8,Size9,Size10,Colors,Colors2,Colors3,Colors4,Time,NumOfSale,OnSale,Pictures,Pictures2,Pictures3,Pictures4,Pictures5")] Products products)
         {
             if (id != products.Id)
             {

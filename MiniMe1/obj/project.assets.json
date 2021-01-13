@@ -8820,23 +8820,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\הודיה איפרגן\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\efrat\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\הודיה איפרגן\\source\\repos\\WebApplication3\\MiniMe1\\MiniMe1.csproj",
+      "projectUniqueName": "C:\\Users\\efrat\\Source\\Repos\\HodaiaEfergan\\MiniLoveApp\\MiniMe1\\MiniMe1.csproj",
       "projectName": "MiniMe1",
-      "projectPath": "C:\\Users\\הודיה איפרגן\\source\\repos\\WebApplication3\\MiniMe1\\MiniMe1.csproj",
-      "packagesPath": "C:\\Users\\הודיה איפרגן\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\הודיה איפרגן\\source\\repos\\WebApplication3\\MiniMe1\\obj\\",
+      "projectPath": "C:\\Users\\efrat\\Source\\Repos\\HodaiaEfergan\\MiniLoveApp\\MiniMe1\\MiniMe1.csproj",
+      "packagesPath": "C:\\Users\\efrat\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\efrat\\Source\\Repos\\HodaiaEfergan\\MiniLoveApp\\MiniMe1\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\הודיה איפרגן\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\efrat\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8899,7 +8895,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

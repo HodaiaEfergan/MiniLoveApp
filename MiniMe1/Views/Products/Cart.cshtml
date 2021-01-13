@@ -1,0 +1,106 @@
+﻿@using Microsoft.AspNetCore.Http;
+@model IEnumerable<sharedAngular.Models.Products>
+
+
+@{
+    ViewData["Title"] = "סל הקניות";
+}
+
+
+
+<body>
+
+
+    <h1>סל קניות</h1>
+    @foreach (var item in Model)
+    {
+        <div class="list-group-item" id=sal>
+            <div class="d-flex flex-row justify-content-center align-items-center" style="direction: rtl">
+                <a a href="/Products/Details/@Html.DisplayFor(modelItem => item.Id)" class="btn btn-outline-light">
+                    <img class="card-img-top" style="object-fit: cover;" src=" @Html.DisplayFor(modelItem => item.Pictures)" height="250"
+                         alt="Card image cap">
+                </a>
+
+
+                <div class="d-flex flex-row align-items-stretch w-100">
+                    <div class="col d-flex flex-column justify-content-center">
+                        <div class="d-flex flex-column align-items-start">
+                            <label class="m-0 h4" > @Html.DisplayFor(modelItem => item.Name)</label>
+
+                        </div>
+
+                    </div>
+                    <div class="col">
+
+                        <div class="row">
+                            <div class="col p-2">
+                                <div class="d-flex flex-column align-items-center mt-3">
+                                    <label class="m-0 h5 ">@Html.DisplayNameFor(modelItem => item.Colors)</label>
+                                    <label class="m-0 h5 ">@Html.DisplayFor(modelItem => item.Colors)</label>
+
+
+                                </div>
+                            </div>
+                            <div class="col p-2">
+                                <div class="d-flex flex-column align-items-center mt-3">
+                                    <label class="m-0 h5 ">@Html.DisplayNameFor(modelItem => item.Size): </label>
+                                    <label class="m-0 h5 ">@Html.DisplayFor(modelItem => item.Size) </label>
+
+
+                                </div>
+                            </div>
+
+                            <div class="col p-2">
+                                <div class="d-flex flex-column align-items-center mt-3">
+                                    <label class="m-0 h5">  ₪  @Html.DisplayNameFor(modelItem => item.Price):</label>
+                                    <label class="m-0 h5">  ₪  @Html.DisplayFor(modelItem => item.Price)</label>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col d-flex flex-column align-items-center justify-content-center">
+                        <div class="d-flex align-items-center justify-content-center">
+
+                            <svg id="icon" width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-archive text-danger"
+                                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path id="ic" fill-rule="evenodd"
+                                      d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1V2zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5H2zm13-3H1v2h14V2zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
+                            </svg>
+                        </div>
+                        <div>
+                            <a asp-action="Delete" asp-route-id="@item.Id">הסר</a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col sm-4">
+
+        </div>
+        <div class="col sm-4">
+
+        </div>
+        <div class="col sm-4">
+            <a style="color:black" class="btn btn-secondary" asp-controller="Pay" asp-action="Create">לתשלום</a>
+            <a style="color:black" class="btn btn-secondary" asp-action="Index">בחזרה למוצרים</a>
+            <button type="button" class="btn btn-secondary" asp-controller="Pay" asp-action="Create">לרכישה</button>
+            <button type="button" class="btn btn-secondary" asp-action="Index">הוספת מוצרים לסל</button>
+        </div>
+
+    </div>
+
+
+
+
+
+</body>
+
+
