@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,7 @@ namespace MiniMe1.Controllers
         // GET: Orders
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Orders.ToListAsync());
+            return View(await _context.Order.ToListAsync());
         }
 
         // GET: Orders/Details/5
@@ -33,14 +34,14 @@ namespace MiniMe1.Controllers
                 return NotFound();
             }
 
-            var orders = await _context.Orders
+            var order = await _context.Order.Include(x=> x.ProductsOrder).ThenInclude(x=>x.Products)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (orders == null)
+            if (order == null)
             {
                 return NotFound();
             }
 
-            return View(orders);
+            return View(order);
         }
 
         // GET: Orders/Create
@@ -54,15 +55,28 @@ namespace MiniMe1.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,OrderNum,UserId,OrderDate,Status,SumPrice,PaymentMethods")] Orders orders)
+        public async Task<IActionResult> Create([Bind("Id,OrderNum,OrderDate,Status,SumPrice,PaymentMethods")] Order order)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(orders);
+                _context.Add(order);
                 await _context.SaveChangesAsync();
+
+                string cart = HttpContext.Session.GetString("cart");
+                string[] productIdscart = cart.Split(",", StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var id in productIdscart)
+                {
+                    ProductsOrder po = new ProductsOrder();
+                    po.ProductId = int.Parse(id);
+                    po.OrdertId = order.Id;
+                    _context.Add(po);
+                    await _context.SaveChangesAsync();
+                }
+                HttpContext.Session.SetString("Cart", "");
                 return RedirectToAction(nameof(Index));
             }
-            return View(orders);
+            return View(order);
         }
 
         // GET: Orders/Edit/5
@@ -73,12 +87,12 @@ namespace MiniMe1.Controllers
                 return NotFound();
             }
 
-            var orders = await _context.Orders.FindAsync(id);
-            if (orders == null)
+            var order = await _context.Order.FindAsync(id);
+            if (order == null)
             {
                 return NotFound();
             }
-            return View(orders);
+            return View(order);
         }
 
         // POST: Orders/Edit/5
@@ -86,9 +100,9 @@ namespace MiniMe1.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,OrderNum,UserId,OrderDate,Status,SumPrice,PaymentMethods")] Orders orders)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,OrderNum,OrderDate,Status,SumPrice,PaymentMethods")] Order order)
         {
-            if (id != orders.Id)
+            if (id != order.Id)
             {
                 return NotFound();
             }
@@ -97,12 +111,12 @@ namespace MiniMe1.Controllers
             {
                 try
                 {
-                    _context.Update(orders);
+                    _context.Update(order);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!OrdersExists(orders.Id))
+                    if (!OrderExists(order.Id))
                     {
                         return NotFound();
                     }
@@ -113,7 +127,7 @@ namespace MiniMe1.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(orders);
+            return View(order);
         }
 
         // GET: Orders/Delete/5
@@ -124,14 +138,14 @@ namespace MiniMe1.Controllers
                 return NotFound();
             }
 
-            var orders = await _context.Orders
+            var order = await _context.Order
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (orders == null)
+            if (order == null)
             {
                 return NotFound();
             }
 
-            return View(orders);
+            return View(order);
         }
 
         // POST: Orders/Delete/5
@@ -139,15 +153,15 @@ namespace MiniMe1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var orders = await _context.Orders.FindAsync(id);
-            _context.Orders.Remove(orders);
+            var order = await _context.Order.FindAsync(id);
+            _context.Order.Remove(order);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool OrdersExists(int id)
+        private bool OrderExists(int id)
         {
-            return _context.Orders.Any(e => e.Id == id);
+            return _context.Order.Any(e => e.Id == id);
         }
     }
 }

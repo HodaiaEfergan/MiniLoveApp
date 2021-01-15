@@ -1,4 +1,4 @@
-﻿@model IEnumerable<sharedAngular.Models.Orders>
+﻿@model IEnumerable<sharedAngular.Models.Order>
 
 @{
     ViewData["Title"] = "Index";
@@ -14,9 +14,6 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.OrderNum)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.OrderDate)
@@ -38,9 +35,6 @@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.OrderNum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.OrderDate)

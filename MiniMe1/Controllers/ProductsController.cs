@@ -33,24 +33,27 @@ namespace MiniMe1.Controllers
         public async Task<IActionResult> Cart()
         {
             string cart = HttpContext.Session.GetString("cart");
-            string[] productIdscart = cart.Split(",", StringSplitOptions.RemoveEmptyEntries);
-            var productscart = _context.Products.Where(x => productIdscart.Contains(x.Id.ToString()));
+            var productscart = new List<Products>();
+            if (cart!=null) 
+            { 
+                string[] productIdscart = cart.Split(",", StringSplitOptions.RemoveEmptyEntries);
+                productscart = _context.Products.Where(x => productIdscart.Contains(x.Id.ToString())).ToList();
+                    
 
-
-            Dictionary<string, int> dict = new Dictionary<string, int>();
-            foreach (var id in productIdscart)
-            {
-                if (dict.ContainsKey(id))
+                Dictionary<string, int> dict = new Dictionary<string, int>();
+                foreach (var id in productIdscart)
                 {
-                    dict[id]++;
+                    if (dict.ContainsKey(id))
+                    {
+                        dict[id]++;
 
-                }
-                else
-                    dict.Add(id, 1);
-            } 
-            ViewData["quantity"] = dict;
-
-            return View(await productscart.ToListAsync());
+                    }
+                    else
+                        dict.Add(id, 1);
+                } 
+                ViewData["quantity"] = dict;
+            }
+            return View(productscart);
 
         }
         public async Task<IActionResult> Like()

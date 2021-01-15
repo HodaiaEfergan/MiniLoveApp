@@ -113,8 +113,7 @@ namespace sharedAngular.Models
         public string Pictures4 { get; set; }
         [Display(Name = "תמונה")]
         public string Pictures5 { get; set; }
-
-
+        public ICollection<ProductsOrder> ProductsOrder { get; set; }
 
     }
 }

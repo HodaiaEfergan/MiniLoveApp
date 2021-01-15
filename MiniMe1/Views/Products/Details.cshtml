@@ -96,10 +96,12 @@
             <p><b>פרטים נוספים: </b>@Html.DisplayFor(model => model.Description)</p>
             <br>
             <a asp-action="AddToCart" asp-route-id="@Model.Id">
-                <p button type="button" class="btn btn-dark">הוספה לסל</button></p>
+                <p button type="button" class="btn btn-dark">הוסף</button></p>
                 
             </a>
-            <a class="btn btn-outline-light" asp-action="AddToCart" asp-route-id="@Model.Id">הוסף לסל</a>
+
+            <a class="btn btn-outline-light" asp-action="AddToCart" asp-route-id="@Model.Id">לסל</a>
+
             <a asp-action="AddToLike" asp-route-id="@Model.Id">
                 <p button type="button" class="btn btn-dark">הוספה למועדפים</button></p>
                 

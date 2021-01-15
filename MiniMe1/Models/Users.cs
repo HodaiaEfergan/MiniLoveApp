@@ -47,7 +47,7 @@ namespace sharedAngular.Models
         //lists
         public ICollection<Products> Love { get; set; }
         public ICollection<Products> ShoppingCart { get; set; }
-        public ICollection<Orders> ListOfOrders { get; set; }
+        public ICollection<Order> ListOfOrders { get; set; }
        
        
        

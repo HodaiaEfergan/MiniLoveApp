@@ -69,7 +69,7 @@
                             <div class="col p-2">
                                 <div class="d-flex flex-column align-items-center mt-3">
                                     <label class="m-0 h5">    סך הכל:</label>
-                                    <div class="price">  ₪  @(item.Price* ViewBag.quantity[item.Id.ToString()])</div>
+                                    <label class="price">    @(item.Price* ViewBag.quantity[item.Id.ToString()])</label>
 
                                 </div>
                             </div>
@@ -98,7 +98,7 @@
             </div>
         </div>
     }
-    <a>סך הכל:<span id="total"></span></a>
+    <div>סך הכל:<span id="total"></span></div>
 
     @section Scripts{
     <script>
@@ -111,6 +111,8 @@
         });
     </script>
      }
+
+
     <div class="row">
         <div class="col sm-4">
 
@@ -119,9 +121,10 @@
 
         </div>
         <div class="col sm-4">
-            <a style="color:black" class="btn btn-secondary" asp-controller="Pay" asp-action="Create">לתשלום</a>
+            <a style="color:black" class="btn btn-secondary"  asp-action="Create" asp-controller="Pays">לתשלום</a>
             <a style="color:black" class="btn btn-secondary" asp-action="Index">בחזרה למוצרים</a>
-            <button type="button" class="btn btn-secondary" asp-controller="Pay" asp-action="Create">לרכישה</button>
+            <a style="color:black" class="btn btn-secondary"  asp-action="Create" asp-controller="Orders">הוספה</a>
+            <button type="button" class="btn btn-secondary" asp-controller="Pays" asp-action="Create">לרכישה</button>
             <button type="button" class="btn btn-secondary" asp-action="Index">הוספת מוצרים לסל</button>
         </div>
 

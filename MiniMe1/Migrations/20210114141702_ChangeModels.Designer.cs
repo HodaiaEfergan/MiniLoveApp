@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniMe1.Data;
 
 namespace MiniMe1.Migrations
 {
     [DbContext(typeof(MiniMe1Context))]
-    partial class MiniMe1ContextModelSnapshot : ModelSnapshot
+    [Migration("20210114141702_ChangeModels")]
+    partial class ChangeModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -19,7 +21,7 @@ namespace MiniMe1.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("sharedAngular.Models.Order", b =>
+            modelBuilder.Entity("sharedAngular.Models.Orders", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -49,7 +51,7 @@ namespace MiniMe1.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("sharedAngular.Models.Pay", b =>
@@ -209,32 +211,6 @@ namespace MiniMe1.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("sharedAngular.Models.ProductsOrder", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrdertId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductsOrderOrdertId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProductsOrderProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductId", "OrdertId");
-
-                    b.HasIndex("OrdertId");
-
-                    b.HasIndex("ProductsOrderProductId", "ProductsOrderOrdertId");
-
-                    b.ToTable("ProductsOrder");
-                });
-
             modelBuilder.Entity("sharedAngular.Models.Users", b =>
                 {
                     b.Property<int>("Id")
@@ -276,7 +252,7 @@ namespace MiniMe1.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("sharedAngular.Models.Order", b =>
+            modelBuilder.Entity("sharedAngular.Models.Orders", b =>
                 {
                     b.HasOne("sharedAngular.Models.Users", "Users")
                         .WithMany("ListOfOrders")
@@ -292,25 +268,6 @@ namespace MiniMe1.Migrations
                     b.HasOne("sharedAngular.Models.Users", null)
                         .WithMany("ShoppingCart")
                         .HasForeignKey("UsersId1");
-                });
-
-            modelBuilder.Entity("sharedAngular.Models.ProductsOrder", b =>
-                {
-                    b.HasOne("sharedAngular.Models.Order", "Order")
-                        .WithMany("ProductsOrder")
-                        .HasForeignKey("OrdertId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("sharedAngular.Models.Products", "Products")
-                        .WithMany("ProductsOrder")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("sharedAngular.Models.ProductsOrder", null)
-                        .WithMany("ProdctsOrder")
-                        .HasForeignKey("ProductsOrderProductId", "ProductsOrderOrdertId");
                 });
 #pragma warning restore 612, 618
         }
