@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\efrat\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\efrat\\.nuget\\packages"
+      "C:\\Users\\משתמש\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\משתמש\\.nuget\\packages"
     ]
   }
 }

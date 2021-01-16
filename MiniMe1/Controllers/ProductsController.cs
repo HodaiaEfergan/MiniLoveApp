@@ -30,6 +30,77 @@ namespace MiniMe1.Controllers
             return View(await _context.Products.ToListAsync());
 
         }
+        // סינון לפי מחיר גבוה לנמוך בנות
+        public async Task<IActionResult> PriceUpGirls()
+        {
+
+
+            var query = from Products in _context.Products
+                        where Products.Category=="בנות"
+                        orderby Products.Price descending
+                        select Products;
+            return View(await query.ToListAsync());
+
+        }
+        //  סינון לפי מחיר נמוך לגבוה בנות
+        public async Task<IActionResult> PriceDownGirls()
+        {
+
+            var query = from products in _context.Products
+                        orderby products.Price
+                        select products;
+
+            return View(await query.ToListAsync());
+            
+        }
+        // סינון לפי מחיר גבוה לנמוך בנים
+        public async Task<IActionResult> PriceUpBoys()
+        {
+
+
+            var query = from products in _context.Products
+                        orderby products.Price descending
+                        select products;
+            ;
+            return View(await query.ToListAsync());
+
+        }
+        //  סינון לפי מחיר נמוך לגבוה בנים
+        public async Task<IActionResult> PriceDownBoys()
+        {
+
+            var query = from products in _context.Products
+                        orderby products.Price
+                        select products;
+
+            return View(await query.ToListAsync());
+
+        }
+        // סינון לפי מחיר גבוה לנמוך תינוקות
+        public async Task<IActionResult> PriceUpBaby()
+        {
+
+            var query = from products in _context.Products
+                        orderby products.Price descending
+                        select products;
+            ;
+            return View(await query.ToListAsync());
+
+        }
+        //  סינון לפי מחיר נמוך לגבוה תינוקות
+        public async Task<IActionResult> PriceDownBaby()
+        {
+  
+            var query = from products in _context.Products
+                        orderby products.Price
+                        select products;
+
+            return View(await query.ToListAsync());
+
+        }
+
+
+
         public async Task<IActionResult> Cart()
         {
             string cart = HttpContext.Session.GetString("cart");
@@ -66,12 +137,13 @@ namespace MiniMe1.Controllers
 
         public async Task<IActionResult> Girls()
         {
+
             var p = from Products in _context.Products
                     where Products.Category == "בנות"
                     select Products;
+
+
             return View(await p.ToListAsync());
-
-
         }
         public async Task<IActionResult> Boys()
         {
