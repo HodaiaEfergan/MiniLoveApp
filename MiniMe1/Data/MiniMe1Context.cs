@@ -15,18 +15,18 @@ namespace MiniMe1.Data
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder) 
         {
-            modelBuilder.Entity<ProductsOrder>()
-                 .HasKey(t => new { t.ProductId, t.OrdertId });
+            modelBuilder.Entity<ProductsNewOrder>()
+                 .HasKey(t => new { t.ProductId, t.NewOrderId });
 
-            modelBuilder.Entity<ProductsOrder>()
+            modelBuilder.Entity<ProductsNewOrder>()
                 .HasOne(pt => pt.Products)
-                .WithMany(pt => pt.ProductsOrder)
+                .WithMany(pt => pt.ProductsNewOrder)
                 .HasForeignKey(pt => pt.ProductId);
 
-            modelBuilder.Entity<ProductsOrder>()
-            .HasOne(pt => pt.Order)
-            .WithMany(pt => pt.ProductsOrder)
-            .HasForeignKey(pt => pt.OrdertId);
+            modelBuilder.Entity<ProductsNewOrder>()
+            .HasOne(pt => pt.NewOrder)
+            .WithMany(pt => pt.ProductsNewOrder)
+            .HasForeignKey(pt => pt.NewOrderId);
 
 
 
@@ -41,9 +41,13 @@ namespace MiniMe1.Data
 
         public DbSet<sharedAngular.Models.Pay> Pay { get; set; }
 
-        public DbSet<sharedAngular.Models.Order> Order { get; set; }
+        public DbSet<sharedAngular.Models.NewOrder> NewOrder { get; set; }
 
-        public DbSet<sharedAngular.Models.ProductsOrder> ProductsOrder { get; set; }
+        public DbSet<sharedAngular.Models.ProductsNewOrder> ProductsNewOrder { get; set; }
+
+        
+
+        
 
         
 

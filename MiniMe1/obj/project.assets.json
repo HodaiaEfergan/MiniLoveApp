@@ -8820,19 +8820,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\efrat\\.nuget\\packages\\": {}
+    "C:\\Users\\משתמש\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\efrat\\Source\\Repos\\HodaiaEfergan\\MiniLoveApp\\MiniMe1\\MiniMe1.csproj",
+      "projectUniqueName": "C:\\Users\\משתמש\\Downloads\\MiniLoveApp\\MiniLoveApp\\MiniMe1\\MiniMe1.csproj",
       "projectName": "MiniMe1",
-      "projectPath": "C:\\Users\\efrat\\Source\\Repos\\HodaiaEfergan\\MiniLoveApp\\MiniMe1\\MiniMe1.csproj",
-      "packagesPath": "C:\\Users\\efrat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\efrat\\Source\\Repos\\HodaiaEfergan\\MiniLoveApp\\MiniMe1\\obj\\",
+      "projectPath": "C:\\Users\\משתמש\\Downloads\\MiniLoveApp\\MiniLoveApp\\MiniMe1\\MiniMe1.csproj",
+      "packagesPath": "C:\\Users\\משתמש\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\משתמש\\Downloads\\MiniLoveApp\\MiniLoveApp\\MiniMe1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\efrat\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\משתמש\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8844,7 +8844,6 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "targetAlias": "netcoreapp3.1",
           "projectReferences": {}
         }
       },
@@ -8856,7 +8855,6 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "targetAlias": "netcoreapp3.1",
         "dependencies": {
           "Microsoft.EntityFrameworkCore.SqlServer": {
             "target": "Package",
@@ -8895,7 +8893,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

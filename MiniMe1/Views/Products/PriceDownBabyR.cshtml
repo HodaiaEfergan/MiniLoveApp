@@ -1,0 +1,79 @@
+﻿@using Microsoft.AspNetCore.Http;
+@model IEnumerable<sharedAngular.Models.Products>
+
+@{
+    ViewData["Title"] = "הפריטים";
+}
+
+<h1>מוצרים</h1>
+<br />
+<div class="container">
+    <div class="row align">
+        <div class="col-md-12 mb-5">
+            <div class="d-flex">
+                <div class="btn-group show" style="background-color:maroon">
+                    <button class="btn btn-default btn-sm dropdown-toggle px-4" id="dropdownMenuReference" aria-expanded="true" type="button" data-toggle="dropdown">מיין לפי</button>
+                    <div class="dropdown-menu hide" aria-labelledby="dropdownMenuReference" x-placement="bottom-start">
+                        <a class="dropdown-item" asp-action="PriceUpBabyR">מחיר גבוה לנמוך</a>
+                        <a class="dropdown-item" asp-action="PriceDownBabyR">מחיר נמוך לגבוה</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="col">
+        <input class="form-control mr-sm-2 text " type="search" placeholder="חפש באתר.." aria-label="Search">
+        <button class="btn my-2 my-sm-0 text " type="submit">חיפוש</button>
+
+    </div>
+    @if (Context.Session.GetString("user") != null)
+    {
+        <p>
+            <a style="color:black" asp-action="Create">+</a>
+        </p>
+    }
+
+    <div class="row mt-4 ml-4 " style="direction: rtl">
+        @foreach (var item in Model)
+        {
+
+
+            <div class="col-lg-3 col-md-4 col-sm-6 m-3">
+                <div class="card mr-5" style="width: 18rem;">
+                    <a a href="/Products/Details/@Html.DisplayFor(modelItem => item.Id)" class="btn btn-outline-light">
+                        <img class="card-img-top" style="object-fit: cover;" src=" @Html.DisplayFor(modelItem => item.Pictures)" height="250"
+                             alt="Card image cap">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">  @Html.DisplayFor(modelItem => item.Name)</h5>
+                        <p class="card-text">
+                            הפריט מגיע בצבע: @Html.DisplayFor(modelItem => item.Colors)
+                        </p>
+
+                        <p class="card-text">
+                            ₪  @Html.DisplayFor(modelItem => item.Price)
+                        </p>
+                        <div class="row" style="direction:initial ">
+                            <div class="col mr-1 mt-2">
+                                <a class="btn btn-outline-light" asp-action="AddToCart" asp-route-id="@item.Id">הוסף לסל</a>
+                            </div>
+                            <div class="col ml-1">
+                                <a class="btn btn-outline-light" asp-action="AddToLike" asp-route-id="@item.Id">הוסף למועדפים</a>
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+
+
+
+</div>

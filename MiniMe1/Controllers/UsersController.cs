@@ -32,6 +32,9 @@ namespace MiniMe1.Controllers
         public async Task<IActionResult> LogUot()
         {
             HttpContext.Session.Remove("user");
+            HttpContext.Session.Remove("manag");
+            
+
             return RedirectToAction(nameof(LogIn));
            
         }

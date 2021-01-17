@@ -52,7 +52,10 @@ namespace MiniMe1.Controllers
         // GET: Pays/Create
         public IActionResult Create()
         {
-            
+            if (HttpContext.Session.GetString("user") == null)
+            {
+                return RedirectToAction("Index", "User");
+            }
             return View();
         }
 
@@ -63,6 +66,10 @@ namespace MiniMe1.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,UserId,CreditNum,ExpireMonth,ExpireYear,OwnName,IdNum,CW")] Pay pay)
         {
+            if (HttpContext.Session.GetString("user") == null)
+            {
+                return RedirectToAction("Index", "User");
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(pay);

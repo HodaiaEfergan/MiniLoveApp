@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using MiniMe1.Data;
 using sharedAngular.Models;
 
+
+
 namespace MiniMe1.Controllers
 {
     public class ProductsController : Controller
@@ -23,41 +25,41 @@ namespace MiniMe1.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            if (HttpContext.Session.GetString("user") == null)
-            {
-                //return RedirectToAction(nameof(LogIn));
-            }
+            
             return View(await _context.Products.ToListAsync());
 
         }
         public async Task<IActionResult> Cart()
         {
-            string cart = HttpContext.Session.GetString("cart");
-            var productscart = new List<Products>();
-            if (cart!=null) 
-            { 
-                string[] productIdscart = cart.Split(",", StringSplitOptions.RemoveEmptyEntries);
-                productscart = _context.Products.Where(x => productIdscart.Contains(x.Id.ToString())).ToList();
-                    
-
-                Dictionary<string, int> dict = new Dictionary<string, int>();
-                foreach (var id in productIdscart)
-                {
-                    if (dict.ContainsKey(id))
-                    {
-                        dict[id]++;
-
-                    }
-                    else
-                        dict.Add(id, 1);
-                } 
-                ViewData["quantity"] = dict;
+            if (HttpContext.Session.GetString("user") == null)
+            {
+                return RedirectToAction("LogIn", "Users");
             }
-            return View(productscart);
 
+            string cart = HttpContext.Session.GetString("cart");
+            string[] productIdscart = cart.Split(",", StringSplitOptions.RemoveEmptyEntries);
+            var productscart = _context.Products.Where(x => productIdscart.Contains(x.Id.ToString()));
+            Dictionary<string, int> dict = new Dictionary<string, int>();
+            foreach (var id in productIdscart)
+            {
+                if (dict.ContainsKey(id))
+                    dict[id]++;
+                else
+                    dict.Add(id, 1);
+            }
+          ViewData["quantity"] = dict; 
+            return View(await productscart.ToListAsync());
         }
+        
+
+        
         public async Task<IActionResult> Like()
+
         {
+            if (HttpContext.Session.GetString("user") == null)
+            {
+                return RedirectToAction("LogIn", "Users");
+            }
             string like = HttpContext.Session.GetString("like");
             string[] productIdsLike = like.Split(",", StringSplitOptions.RemoveEmptyEntries);
             var productsLike = _context.Products.Where(x => productIdsLike.Contains(x.Id.ToString()));
@@ -65,16 +67,167 @@ namespace MiniMe1.Controllers
 
         }
 
+        // סינון לפי מחיר גבוה לנמוך בנות
+        public async Task<IActionResult> PriceUpGirls()
+        {
+
+
+            var query = from Products in _context.Products
+                        where Products.Category == "בנות"
+                        orderby Products.Price descending
+                        select Products;
+            return View(await query.ToListAsync());
+
+        }
+        //  סינון לפי מחיר נמוך לגבוה בנות
+        public async Task<IActionResult> PriceDownGirls()
+        {
+
+            var query = from Products in _context.Products
+                        where Products.Category == "בנות"
+                        orderby Products.Price
+                        select Products;
+
+            return View(await query.ToListAsync());
+
+        }
+        // סינון לפי מחיר גבוה לנמוך בנות חדש
+        public async Task<IActionResult> PriceUpGirlsR()
+        {
+
+
+            var query = from Products in _context.Products
+                        where Products.Category == "בנות"
+                        orderby Products.Price descending
+                        select Products;
+            return View(await query.ToListAsync());
+
+        }
+        //  סינון לפי מחיר נמוך לגבוה בנות חדש
+        public async Task<IActionResult> PriceDownGirlsR()
+        {
+
+            var query = from Products in _context.Products
+                        where Products.Category == "בנות"
+                        orderby Products.Price
+                        select Products;
+
+            return View(await query.ToListAsync());
+
+        }
+        // סינון לפי מחיר גבוה לנמוך בנים
+        public async Task<IActionResult> PriceUpBoys()
+        {
+
+
+            var query = from Products in _context.Products
+                        where Products.Category == "בנים"
+                        orderby Products.Price descending
+                        select Products;
+            ;
+            return View(await query.ToListAsync());
+
+        }
+        //  סינון לפי מחיר נמוך לגבוה בנים
+        public async Task<IActionResult> PriceDownBoys()
+        {
+
+            var query = from Products in _context.Products
+                        where Products.Category == "בנים"
+                        orderby Products.Price
+                        select Products;
+
+            return View(await query.ToListAsync());
+
+        }
+        // סינון לפי מחיר גבוה לנמוך בנים חדש
+        public async Task<IActionResult> PriceUpBoysR()
+        {
+
+
+            var query = from Products in _context.Products
+                        where Products.Category == "בנים"
+                        orderby Products.Price descending
+                        select Products;
+            ;
+            return View(await query.ToListAsync());
+
+        }
+        //  סינון לפי מחיר נמוך לגבוה בנים חדש
+        public async Task<IActionResult> PriceDownBoysR()
+        {
+
+            var query = from Products in _context.Products
+                        where Products.Category == "בנים"
+                        orderby Products.Price
+                        select Products;
+
+            return View(await query.ToListAsync());
+
+        }
+        // סינון לפי מחיר גבוה לנמוך תינוקות
+        public async Task<IActionResult> PriceUpBaby()
+        {
+
+            var query = from Products in _context.Products
+                        where Products.Type == "תינוקות"
+                        orderby Products.Price descending
+                        select Products;
+            ;
+            return View(await query.ToListAsync());
+
+        }
+        //  סינון לפי מחיר נמוך לגבוה תינוקות
+        public async Task<IActionResult> PriceDownBaby()
+        {
+
+            var query = from Products in _context.Products
+                        where Products.Type == "תינוקות"
+                        orderby Products.Price
+                        select Products;
+
+            return View(await query.ToListAsync());
+
+        }
+        //  סינון לפי מחיר גבוה לנמוך תינוקות חדש
+        public async Task<IActionResult> PriceUpBabyR()
+        {
+
+            var query = from Products in _context.Products
+                        where Products.Type == "תינוקות"
+                        orderby Products.Price descending
+                        select Products;
+            ;
+            return View(await query.ToListAsync());
+
+        }
+        // סינון לפי מחיר נמוך לגבוה תינוקות חדש
+        public async Task<IActionResult> PriceDownBabyR()
+        {
+
+            var query = from Products in _context.Products
+                        where Products.Type == "תינוקות"
+                        orderby Products.Price
+                        select Products;
+
+            return View(await query.ToListAsync());
+
+        }
+
+
+
+
 
 
         public async Task<IActionResult> Girls()
         {
+
             var p = from Products in _context.Products
                     where Products.Category == "בנות"
                     select Products;
+
+
             return View(await p.ToListAsync());
-
-
         }
         public async Task<IActionResult> Boys()
         {
@@ -88,37 +241,13 @@ namespace MiniMe1.Controllers
         public async Task<IActionResult> Baby()
         {
             var p = from Products in _context.Products
-                    where Products.Category == "תינוקות"
+                    where Products.Type == "תינוקות"
                     select Products;
             return View(await p.ToListAsync());
 
 
         }
-        public async Task<IActionResult> RecentGirls()
-        {
-            var p = from Products in _context.Products
-                    where Products.Category == "בנות" && Products.Time.Year == DateTime.Now.Year && Products.Time.Month == DateTime.Now.Month - 2
-                    select Products;
-            return View(await p.ToListAsync());
 
-
-        }
-        public async Task<IActionResult> RecentBoys()
-        {
-            var p = from Products in _context.Products
-                    where Products.Category == "בנים" && Products.Time.Year == DateTime.Now.Year && Products.Time.Month == DateTime.Now.Month - 2
-                    select Products;
-            return View(await p.ToListAsync());
-
-        }
-        public async Task<IActionResult> RecentBaby()
-        {
-            var p = from Products in _context.Products
-                    where Products.Category == "תינוקות" && Products.Time.Year == DateTime.Now.Year && Products.Time.Month == DateTime.Now.Month - 2
-                    select Products;
-            return View(await p.ToListAsync());
-
-        }
 
         public async Task<IActionResult> Search()
         {
@@ -168,18 +297,48 @@ namespace MiniMe1.Controllers
         }
         public IActionResult AddToCart(int id)
         {
-            string cart = HttpContext.Session.GetString("cart");
+            if (HttpContext.Session.GetString("user") == null)
+            { return RedirectToAction("LogIn", "Users"); }
+            else
+            { 
+                string cart = HttpContext.Session.GetString("cart");
             if (cart == null)
                 cart = "";
 
             cart += id + ",";
             HttpContext.Session.SetString("cart", cart);
             return RedirectToAction("Index");
+            }
+        }
+        public async Task<IActionResult> DeleteFromCart(int id)
+        {
+            string cart = HttpContext.Session.GetString("cart");
+            string[] productIdscart = cart.Split(",", StringSplitOptions.RemoveEmptyEntries);
+            productIdscart = productIdscart.Where(w => w != id.ToString() ).ToArray();
+            string After = null;
+            for (int i = 0; i < productIdscart.Length; i++)
+            {
+                After += productIdscart[i] + ",";
+            }
+            if (After==null)
+            {
+                HttpContext.Session.SetString("cart","");
+            }
+            else
+                HttpContext.Session.SetString("cart",After);
+            return RedirectToAction("cart", "Products");
+
 
         }
-       
+
+
+
+
+
         public IActionResult AddToLike(int id)
         {
+            if (HttpContext.Session.GetString("user") == null)
+            { return RedirectToAction("LogIn", "Users"); }
             string like = HttpContext.Session.GetString("like");
             if (like == null)
                 like = "";

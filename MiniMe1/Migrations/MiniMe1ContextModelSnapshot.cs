@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiniMe1.Data;
+using sharedAngular.Models;
 
 namespace MiniMe1.Migrations
 {
@@ -13,34 +14,68 @@ namespace MiniMe1.Migrations
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
+
+
+
+
+         
+            modelBuilder.Entity<ProductsNewOrder>()
+                 .HasKey(t => new { t.ProductId, t.NewOrderId });
+
+            modelBuilder.Entity<ProductsNewOrder>()
+                .HasOne(pt => pt.Products)
+                .WithMany(pt => pt.ProductsNewOrder)
+                .HasForeignKey(pt => pt.ProductId);
+
+            modelBuilder.Entity<ProductsNewOrder>()
+            .HasOne(pt => pt.NewOrder)
+            .WithMany(pt => pt.ProductsNewOrder)
+            .HasForeignKey(pt => pt.NewOrderId);
+
+
+
+        
 #pragma warning disable 612, 618
-            modelBuilder
+        modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.10")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("sharedAngular.Models.Order", b =>
+            modelBuilder.Entity("sharedAngular.Models.NewOrder", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
+                    b.Property<string>("CW")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(3)")
+                        .HasMaxLength(3);
 
-                    b.Property<int>("OrderNum")
+                    b.Property<string>("CreditNum")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(16)")
+                        .HasMaxLength(16);
+
+                    b.Property<int>("ExpireMonth")
                         .HasColumnType("int");
 
-                    b.Property<string>("PaymentMethods")
+                    b.Property<int>("ExpireYear")
+                        .HasColumnType("int");
+
+                    b.Property<string>("IdNum")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(15);
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("OwnName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
 
-                    b.Property<float>("SumPrice")
-                        .HasColumnType("real");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("UsersId")
                         .HasColumnType("int");
@@ -49,7 +84,7 @@ namespace MiniMe1.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("Order");
+                    b.ToTable("NewOrder");
                 });
 
             modelBuilder.Entity("sharedAngular.Models.Pay", b =>
@@ -209,30 +244,30 @@ namespace MiniMe1.Migrations
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("sharedAngular.Models.ProductsOrder", b =>
+            modelBuilder.Entity("sharedAngular.Models.ProductsNewOrder", b =>
                 {
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OrdertId")
+                    b.Property<int>("NewOrderId")
                         .HasColumnType("int");
 
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductsOrderOrdertId")
+                    b.Property<int?>("ProductsNewOrderNewOrderId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ProductsOrderProductId")
+                    b.Property<int?>("ProductsNewOrderProductId")
                         .HasColumnType("int");
 
-                    b.HasKey("ProductId", "OrdertId");
+                    b.HasKey("ProductId", "NewOrderId");
 
-                    b.HasIndex("OrdertId");
+                    b.HasIndex("NewOrderId");
 
-                    b.HasIndex("ProductsOrderProductId", "ProductsOrderOrdertId");
+                    b.HasIndex("ProductsNewOrderProductId", "ProductsNewOrderNewOrderId");
 
-                    b.ToTable("ProductsOrder");
+                    b.ToTable("ProductsNewOrder");
                 });
 
             modelBuilder.Entity("sharedAngular.Models.Users", b =>
@@ -276,9 +311,9 @@ namespace MiniMe1.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("sharedAngular.Models.Order", b =>
+            modelBuilder.Entity("sharedAngular.Models.NewOrder", b =>
                 {
-                    b.HasOne("sharedAngular.Models.Users", "Users")
+                    b.HasOne("sharedAngular.Models.Users", null)
                         .WithMany("ListOfOrders")
                         .HasForeignKey("UsersId");
                 });
@@ -294,23 +329,23 @@ namespace MiniMe1.Migrations
                         .HasForeignKey("UsersId1");
                 });
 
-            modelBuilder.Entity("sharedAngular.Models.ProductsOrder", b =>
+            modelBuilder.Entity("sharedAngular.Models.ProductsNewOrder", b =>
                 {
-                    b.HasOne("sharedAngular.Models.Order", "Order")
-                        .WithMany("ProductsOrder")
-                        .HasForeignKey("OrdertId")
+                    b.HasOne("sharedAngular.Models.NewOrder", "NewOrder")
+                        .WithMany("ProductsNewOrder")
+                        .HasForeignKey("NewOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("sharedAngular.Models.Products", "Products")
-                        .WithMany("ProductsOrder")
+                        .WithMany("ProductsNewOrder")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("sharedAngular.Models.ProductsOrder", null)
-                        .WithMany("ProdctsOrder")
-                        .HasForeignKey("ProductsOrderProductId", "ProductsOrderOrdertId");
+                    b.HasOne("sharedAngular.Models.ProductsNewOrder", null)
+                        .WithMany("ProdctsNewOrder")
+                        .HasForeignKey("ProductsNewOrderProductId", "ProductsNewOrderNewOrderId");
                 });
 #pragma warning restore 612, 618
         }

@@ -88,7 +88,7 @@
                             </svg>
                         </div>
                         <div>
-                            <a asp-action="Delete" asp-route-id="@item.Id">הסר</a>
+                            <a asp-action="DeleteFromCart" asp-route-id="@item.Id">הסר</a>
                         </div>
 
                     </div>
@@ -121,11 +121,12 @@
 
         </div>
         <div class="col sm-4">
-            <a style="color:black" class="btn btn-secondary"  asp-action="Create" asp-controller="Pays">לתשלום</a>
+            <a style="color:black" class="btn btn-secondary" asp-action="Create" asp-controller="NewOrders">לתשלום</a>
+            
             <a style="color:black" class="btn btn-secondary" asp-action="Index">בחזרה למוצרים</a>
-            <a style="color:black" class="btn btn-secondary"  asp-action="Create" asp-controller="Orders">הוספה</a>
-            <button type="button" class="btn btn-secondary" asp-controller="Pays" asp-action="Create">לרכישה</button>
-            <button type="button" class="btn btn-secondary" asp-action="Index">הוספת מוצרים לסל</button>
+            @*<a style="color:black" class="btn btn-secondary"  asp-action="Create" asp-controller="Orders">הוספה</a>*@
+            @*<button type="button" class="btn btn-secondary" asp-controller="Pays" asp-action="Create">לרכישה</button>*@
+            @*<button type="button" class="btn btn-secondary" asp-action="Index">הוספת מוצרים לסל</button>*@
         </div>
 
     </div>
